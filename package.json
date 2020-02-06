@@ -1,0 +1,30 @@
+{
+  "name": "s3-cache-bridge",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.612.0",
+    "filenamify": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "micro": "^9.3.4",
+    "p-limit": "^2.2.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.7",
+    "@types/micro": "^7.3.3",
+    "@types/node": "12",
+    "prettier": "^1.19.1",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
+    "tslint": "^5",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.7.5",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
+  }
+}

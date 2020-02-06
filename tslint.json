@@ -1,0 +1,17 @@
+{
+  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "rules": {
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "max-classes-per-file": false,
+    "strict-boolean-expressions": true,
+    "strict-type-predicates": true,
+    "no-floating-promises": true,
+    "await-promise": true,
+    "no-return-await": true,
+    "ordered-imports": true
+  },
+  "linterOptions": {
+    "exclude": ["node_modules/**/*.ts", ".webpack/**/*.js", "webpack.config.js"]
+  }
+}

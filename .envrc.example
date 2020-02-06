@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source_up
+
+export BUCKET_NAME=""
+export CACHE_DIR="/tmp/cache"
+
