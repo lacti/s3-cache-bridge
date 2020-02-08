@@ -6,5 +6,8 @@ node_modules
 .envrc.example
 .gitignore
 Dockerfile
-tslint.json
+README.md
 docker-compose.yml
+tslint.json
+*.swp
+*.log
