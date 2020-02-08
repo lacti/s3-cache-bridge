@@ -13,7 +13,7 @@ export default function unlinkOldLocalFiles(
     .sort((a, b) => b.stat.mtime.getTime() - a.stat.mtime.getTime())
     .slice(remainingCount)
     .forEach(({ localFile }) => {
-      log(`Delete old file`, localFile);
+      log("Delete old file", localFile);
       unlinkSync(localFile);
     });
 }

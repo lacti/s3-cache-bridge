@@ -8,6 +8,6 @@ export default async function uploadOneToS3(key: string) {
   if (!existsSync(localFile)) {
     return;
   }
-  log(`Upload to S3`, localFile, key);
+  log("Upload to S3", localFile, key);
   return s3Upload(key, localFile);
 }
