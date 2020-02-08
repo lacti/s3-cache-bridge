@@ -1,0 +1,18 @@
+version: "3"
+services:
+  s3-cache-bridge:
+    build: .
+    image: lacti/s3-cache-bridge
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      BUCKET_NAME: "${BUCKET_NAME}"
+      CACHE_DIR: "${CACHE_DIR}"
+      PORT: "${PORT}"
+      SYNC_MILLIS: "${SYNC_MILLIS}"
+      JWT_SECRET_KEY: "${JWT_SECRET_KEY}"
+      AUTH_ID: "${AUTH_ID}"
+      AUTH_PASSWORD: "${AUTH_PASSWORD}"
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"

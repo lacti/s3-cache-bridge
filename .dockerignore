@@ -1,0 +1,10 @@
+.vscode
+dist
+node_modules
+.dockerignore
+.envrc
+.envrc.example
+.gitignore
+Dockerfile
+tslint.json
+docker-compose.yml

@@ -4,6 +4,7 @@ source_up
 
 export BUCKET_NAME=""
 export CACHE_DIR="/tmp/cache"
+export PORT="3000"
 
 # Use JWT authorization
 export JWT_SECRET_KEY=""
@@ -11,3 +12,8 @@ export JWT_SECRET_KEY=""
 # Use Basic authorization
 export AUTH_ID=""
 export AUTH_PASSWORD=""
+
+# AWS Profile
+export AWS_DEFAULT_REGION=""
+export AWS_ACCESS_KEY_ID=""
+export AWS_SECRET_ACCESS_KEY=""

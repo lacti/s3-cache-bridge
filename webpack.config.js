@@ -13,7 +13,6 @@ module.exports = {
     filename: "[name].js"
   },
   target: "node",
-  externals: [/aws-sdk/],
   module: {
     rules: [{ test: /\.tsx?$/, loader: "ts-loader" }]
   }
