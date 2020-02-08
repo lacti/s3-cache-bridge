@@ -1,5 +1,5 @@
 export const bucketName = process.env.BUCKET_NAME!;
-export const cacheDir = process.env.CACHE_DIR!;
+export const cacheDir = process.env.CACHE_DIR ?? "/tmp/s3-cache-bridge";
 export const port = +(process.env.PORT ?? "3000");
 export const syncMillis = +(process.env.SYNC_MILLIS ?? "3600000");
 

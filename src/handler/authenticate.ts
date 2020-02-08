@@ -8,6 +8,12 @@ const auths: { [type: string]: (token: string) => void } = {
 };
 
 export default function authenticate(authorization: string) {
+  const noAuth =
+    Object.values(auth).filter(each => each !== undefined).length === 0;
+  if (noAuth && authorization.length === 0) {
+    return;
+  }
+
   const [type, token] = splitByDelimiter(authorization, " ");
   return (auths[type] ?? invalidAuth)(token);
 }
