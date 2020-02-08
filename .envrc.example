@@ -5,3 +5,9 @@ source_up
 export BUCKET_NAME=""
 export CACHE_DIR="/tmp/cache"
 
+# Use JWT authorization
+export JWT_SECRET_KEY=""
+
+# Use Basic authorization
+export AUTH_ID=""
+export AUTH_PASSWORD=""
