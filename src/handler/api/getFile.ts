@@ -1,4 +1,4 @@
-import { createReadStream, existsSync, lstatSync, unlinkSync } from "fs";
+import { createReadStream, existsSync, lstatSync } from "fs";
 import keyAsLocalFile from "../../local/keyAsLocalFile";
 import s3Download from "../../s3/download";
 import ensureParentDirectory from "../../utils/ensureParentDirectory";
@@ -28,13 +28,7 @@ async function ensureLocalFile(key: string, localFile: string) {
   log("Download file from S3", key);
   ensureParentDirectory(localFile);
 
-  try {
-    await s3Download(key, localFile);
-  } catch (error) {
-    // It can make a 0-size file even if it would be fail to download.
-    if (existsSync(localFile)) {
-      unlinkSync(localFile);
-    }
-    throw error;
-  }
+  // It makes an empty file if there is no object in S3.
+  // It will help to reduce access count when there are many requests for absent objects.
+  await s3Download(key, localFile);
 }
