@@ -15,11 +15,12 @@ docker-compose pull &&
 
 ### API
 
-| Method | Description      | Example                            |
-| ------ | ---------------- | ---------------------------------- |
-| GET    | Get an object    | `curl -XGET localhost:3000/abc`    |
-| PUT    | Put an object    | `curl -T abc localhost:3000/abc`   |
-| DELETE | Delete an object | `curl -XDELETE localhost:3000/abc` |
+| Method | Description              | Example                            |
+| ------ | ------------------------ | ---------------------------------- |
+| GET    | Get an object            | `curl -XGET localhost:3000/abc`    |
+| PUT    | Put an object            | `curl -T abc localhost:3000/abc`   |
+| DELETE | Delete an object         | `curl -XDELETE localhost:3000/abc` |
+| POST   | Update a state of object | `curl -XPOST localhost:3000/abc`   |
 
 #### PUT Options
 
@@ -33,6 +34,12 @@ docker-compose pull &&
 | Option  | Description       | Example                                    |
 | ------- | ----------------- | ------------------------------------------ |
 | `cache` | Delete cache only | `curl -XDELETE localhost:3000/abc?cache=1` |
+
+#### POST Options
+
+| Option | Description              | Example                                 |
+| ------ | ------------------------ | --------------------------------------- |
+| `sync` | Sync with S3 immediately | `curl -XPOST localhost:3000/abc?sync=1` |
 
 ### Environment
 
