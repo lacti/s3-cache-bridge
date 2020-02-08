@@ -1,17 +1,15 @@
 #!/bin/bash
 
-source_up
-
 export BUCKET_NAME=""
-export CACHE_DIR="/tmp/cache"
-export PORT="3000"
+# export CACHE_DIR="/tmp/s3-cache-bridge"
+# export PORT="3000"
 
 # Use JWT authorization
-export JWT_SECRET_KEY=""
+# export JWT_SECRET_KEY=""
 
 # Use Basic authorization
-export AUTH_ID=""
-export AUTH_PASSWORD=""
+# export AUTH_ID=""
+# export AUTH_PASSWORD=""
 
 # AWS Profile
 export AWS_DEFAULT_REGION=""
