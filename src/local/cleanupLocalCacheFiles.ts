@@ -11,13 +11,13 @@ export default function cleanupLocalCacheFiles() {
     return;
   }
 
-  const files = readdirSync(cacheDir);
+  const files = readdirSync(cacheDir, { withFileTypes: true })
+    .filter(each => each.isFile())
+    .map(each => join(cacheDir, each.name));
   if (files.length <= remainingCount * 1.5) {
     return;
   }
+
   log("Cleanup old caches", files);
-  unlinkOldLocalFiles(
-    files.map(each => join(cacheDir, each)),
-    remainingCount
-  );
+  unlinkOldLocalFiles(files, remainingCount);
 }

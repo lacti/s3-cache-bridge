@@ -1,4 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
+import acquireLock from "../local/lock/acquireLock";
+import releaseLock from "../local/lock/releaseLock";
 import log from "../utils/log";
 import parseKeyAndQuery from "../utils/parseKeyAndQuery";
 import authenticate from "./authenticate";
@@ -12,13 +14,18 @@ export default async function route(req: IncomingMessage, res: ServerResponse) {
     const query = { ...rawQuery };
     log(req.method, key, query);
 
-    const result = await (routes[req.method ?? ""] ?? noRoute)({
-      req,
-      key,
-      query
-    });
-    if (result !== undefined) {
-      return result;
+    await acquireLock(key);
+    try {
+      const result = await (routes[req.method ?? ""] ?? noRoute)({
+        req,
+        key,
+        query
+      });
+      if (result !== undefined) {
+        return result;
+      }
+    } finally {
+      releaseLock(key);
     }
     res.writeHead(200).end();
   } catch (error) {
