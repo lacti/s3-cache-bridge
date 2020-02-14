@@ -10,18 +10,14 @@ const lockPollingIntervalMillis = 50;
 export default async function acquireLock(key: string) {
   const lockFile = keyAsLockFile(key);
   const start = Date.now();
-  while (true) {
-    while (existsSync(lockFile)) {
-      await sleep(lockPollingIntervalMillis);
-    }
-    if (writeLockFile(lockFile)) {
+  while (Date.now() - start <= lockTimeout) {
+    if (!existsSync(lockFile) && writeLockFile(lockFile)) {
       log("Acquire a lock", lockFile);
-      break;
+      return;
     }
-    if (Date.now() - start > lockTimeout) {
-      throw new Error("Lock timeout");
-    }
+    await sleep(lockPollingIntervalMillis);
   }
+  throw new Error("Lock timeout");
 }
 
 function writeLockFile(lockFile: string) {

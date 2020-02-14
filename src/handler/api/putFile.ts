@@ -2,6 +2,7 @@ import { createWriteStream } from "fs";
 import { Readable } from "stream";
 import dirty from "../../local/dirty";
 import keyAsLocalFile from "../../local/keyAsLocalFile";
+import lockGuard from "../../local/lock/lockGuard";
 import syncOneWithS3 from "../../local/syncOneWithS3";
 import ensureParentDirectory from "../../utils/ensureParentDirectory";
 import log from "../../utils/log";
@@ -12,16 +13,18 @@ export default async function putFile({
   req: readable,
   query
 }: IRouteEvent) {
-  const localFile = keyAsLocalFile(key);
-  log("Put a local file", key, localFile, query);
+  return lockGuard(key, async () => {
+    const localFile = keyAsLocalFile(key);
+    log("Put a local file", key, localFile, query);
 
-  dirty.add(key);
-  await writeToLocalFile(readable, localFile, query.append === "1");
+    dirty.add(key);
+    await writeToLocalFile(readable, localFile, query.append === "1");
 
-  if (query.sync === "1") {
-    log("Sync immediately", key);
-    await syncOneWithS3(key);
-  }
+    if (query.sync === "1") {
+      log("Sync immediately", key);
+      await syncOneWithS3(key);
+    }
+  });
 }
 
 function writeToLocalFile(

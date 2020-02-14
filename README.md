@@ -37,9 +37,11 @@ docker-compose pull &&
 
 #### POST Options
 
-| Option | Description              | Example                                 |
-| ------ | ------------------------ | --------------------------------------- |
-| `sync` | Sync with S3 immediately | `curl -XPOST localhost:3000/abc?sync=1` |
+| Option         | Description              | Example                                       |
+| -------------- | ------------------------ | --------------------------------------------- |
+| `sync`         | Sync with S3 immediately | `curl -XPOST localhost:3000/abc?sync=1`       |
+| `lock=acquire` | Acquire a lock of key    | `curl -XPOST localhost:3000/abc?lock=acquire` |
+| `lock=release` | Release a lock of key    | `curl -XPOST localhost:3000/abc?lock=release` |
 
 ### Environment
 
