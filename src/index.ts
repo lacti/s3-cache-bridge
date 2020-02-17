@@ -1,6 +1,7 @@
 import micro from "micro";
 import { port } from "./env";
 import route from "./handler/route";
+import cleanupExpiredLockPeriodically from "./local/lock/cleanupExpiredLockPeriodically";
 import syncWithS3Periodically from "./local/syncWithS3Periodically";
 import log from "./utils/log";
 import runningHandle from "./utils/runningHandle";
@@ -12,6 +13,9 @@ log("Server is ready on", port);
 // Start S3 synchronization loop.
 const handle = runningHandle(true);
 const syncPromise = syncWithS3Periodically(handle).catch(log);
+
+// Start expired lock cleaner.
+cleanupExpiredLockPeriodically(handle).catch(log);
 
 // Setup stop signal handlers.
 async function finalize() {

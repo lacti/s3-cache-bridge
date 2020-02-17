@@ -15,7 +15,7 @@ export default async function getFile({ key, query }: IRouteEvent) {
     // An empty file cannot create a ReadStream.
     const stat = lstatSync(localFile);
     if (stat.size === 0) {
-      throw new Error("Empty file");
+      throw new Error(`Empty file [${key}]`);
     }
 
     log("Get local file", localFile);

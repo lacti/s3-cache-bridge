@@ -5,7 +5,7 @@ import keyAsLockFile from "./keyAsLockFile";
 export default function releaseLock(key: string) {
   const lockFile = keyAsLockFile(key);
   if (!existsSync(lockFile)) {
-    throw new Error("Invalid lock state");
+    throw new Error(`Invalid lock state [${key}]`);
   }
   unlinkSync(lockFile);
   log("Release a lock", lockFile);

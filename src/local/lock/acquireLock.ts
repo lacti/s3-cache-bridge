@@ -17,7 +17,7 @@ export default async function acquireLock(key: string) {
     }
     await sleep(lockPollingIntervalMillis);
   }
-  throw new Error("Lock timeout");
+  throw new Error(`Lock timeout [${key}]`);
 }
 
 function writeLockFile(lockFile: string) {
