@@ -5,7 +5,7 @@ export default function parseKeyAndQuery(url: string) {
   const { pathname, query } = parseURL(url, true);
   const key = trimStartSlash(pathname ?? "");
   if (key.length === 0) {
-    throw new Error("No key in URL");
+    throw new Error(`No key in URL[${url}]`);
   }
   return { key, query };
 }
