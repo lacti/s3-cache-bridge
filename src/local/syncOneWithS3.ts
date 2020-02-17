@@ -2,7 +2,7 @@ import log from "../utils/log";
 import dirty from "./dirty";
 import uploadOneToS3 from "./uploadOneToS3";
 
-export default async function syncOneWithS3(key: string) {
+export default async function ssyncOneWithS3(key: string) {
   try {
     log("Sync one key", key);
     await uploadOneToS3(key);
