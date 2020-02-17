@@ -22,18 +22,26 @@ docker-compose pull &&
 | DELETE | Delete an object         | `curl -XDELETE localhost:3000/abc` |
 | POST   | Update a state of object | `curl -XPOST localhost:3000/abc`   |
 
+#### GET Options
+
+| Option   | Description                    | Example                                  |
+| -------- | ------------------------------ | ---------------------------------------- |
+| `noLock` | Get an object without the lock | `curl -XGET localhost:3000/abc?noLock=1` |
+
 #### PUT Options
 
-| Option   | Description                 | Example                                   |
-| -------- | --------------------------- | ----------------------------------------- |
-| `append` | Append content to an object | `curl -T abc localhost:3000/abc?append=1` |
-| `sync`   | Sync with S3 immediately    | `curl -T abc localhost:3000/abc?sync=1`   |
+| Option   | Description                    | Example                                   |
+| -------- | ------------------------------ | ----------------------------------------- |
+| `append` | Append content to an object    | `curl -T abc localhost:3000/abc?append=1` |
+| `sync`   | Sync with S3 immediately       | `curl -T abc localhost:3000/abc?sync=1`   |
+| `noLock` | Put an object without the lock | `curl -T abc localhost:3000/abc?noLock=1` |
 
 #### DELETE Options
 
-| Option  | Description       | Example                                    |
-| ------- | ----------------- | ------------------------------------------ |
-| `cache` | Delete cache only | `curl -XDELETE localhost:3000/abc?cache=1` |
+| Option   | Description                       | Example                                     |
+| -------- | --------------------------------- | ------------------------------------------- |
+| `cache`  | Delete cache only                 | `curl -XDELETE localhost:3000/abc?cache=1`  |
+| `noLock` | Delete an object without the lock | `curl -XDELETE localhost:3000/abc?noLock=1` |
 
 #### POST Options
 

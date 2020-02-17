@@ -13,7 +13,7 @@ export default async function putFile({
   req: readable,
   query
 }: IRouteEvent) {
-  return lockGuard(key, async () => {
+  async function putWork() {
     const localFile = keyAsLocalFile(key);
     log("Put a local file", key, localFile, query);
 
@@ -24,7 +24,8 @@ export default async function putFile({
       log("Sync immediately", key);
       await syncOneWithS3(key);
     }
-  });
+  }
+  return query.noLock === "1" ? putWork() : lockGuard(key, putWork);
 }
 
 function writeToLocalFile(

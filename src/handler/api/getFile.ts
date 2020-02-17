@@ -6,8 +6,8 @@ import ensureParentDirectory from "../../utils/ensureParentDirectory";
 import log from "../../utils/log";
 import IRouteEvent from "../routeEvent";
 
-export default async function getFile({ key }: IRouteEvent) {
-  return lockGuard(key, async () => {
+export default async function getFile({ key, query }: IRouteEvent) {
+  async function getWork() {
     // Download a file from S3 if a local cache doesn't exist.
     const localFile = keyAsLocalFile(key);
     await ensureLocalFile(key, localFile);
@@ -20,7 +20,8 @@ export default async function getFile({ key }: IRouteEvent) {
 
     log("Get local file", localFile);
     return createReadStream(localFile);
-  });
+  }
+  return query.noLock === "1" ? getWork() : lockGuard(key, getWork);
 }
 
 async function ensureLocalFile(key: string, localFile: string) {

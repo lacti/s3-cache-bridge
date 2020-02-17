@@ -8,7 +8,7 @@ import log from "../../utils/log";
 import IRouteEvent from "../routeEvent";
 
 export default async function deleteFile({ key, query }: IRouteEvent) {
-  return lockGuard(key, async () => {
+  async function deleteWork() {
     // Delete only cache.
     if (query.cache === "1") {
       log("Delete only cache", key);
@@ -24,7 +24,8 @@ export default async function deleteFile({ key, query }: IRouteEvent) {
     // And then, delete a file from S3.
     const deleted = await s3Delete(key);
     log("Delete file from S3", key, deleted);
-  });
+  }
+  return query.noLock === "1" ? deleteWork() : lockGuard(key, deleteWork);
 }
 
 async function invalidateCache(key: string) {
