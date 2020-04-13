@@ -48,17 +48,21 @@ async function applyPatchToJSON({
       resource
     } as AnyOperation);
   } catch (error) {
-    throw { statusCode: 400, body: JSON.stringify({ error: error.message }) };
+    throw {
+      statusCode: 200,
+      body: JSON.stringify({ _updated: false, error: error.message })
+    };
   }
 
-  const newJSON = JSON.stringify(newResource);
   await writeFile({
     key,
-    readable: asStringStream(newJSON),
+    readable: asStringStream(JSON.stringify(newResource)),
     append: false,
     sync
   });
-  return !fetch ? undefined : asStringStream(newJSON);
+  return !fetch
+    ? undefined
+    : asStringStream(JSON.stringify({ _updated: true, result: newResource }));
 }
 
 function asStringStream(input: string): Readable {
