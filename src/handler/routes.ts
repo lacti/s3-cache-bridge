@@ -1,5 +1,6 @@
 import deleteFile from "./api/deleteFile";
 import getFile from "./api/getFile";
+import patchJSONFile from "./api/patchJSONFile";
 import putFile from "./api/putFile";
 import updateFileState from "./api/updateFileState";
 import IRouteEvent from "./routeEvent";
@@ -8,7 +9,8 @@ const routes: { [method: string]: (event: IRouteEvent) => Promise<any> } = {
   GET: getFile,
   PUT: putFile,
   DELETE: deleteFile,
-  POST: updateFileState
+  POST: updateFileState,
+  PATCH: patchJSONFile
 };
 
 export default routes;

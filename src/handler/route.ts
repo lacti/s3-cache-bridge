@@ -22,8 +22,18 @@ export default async function route(req: IncomingMessage, res: ServerResponse) {
     }
     res.writeHead(200).end();
   } catch (error) {
-    log("Error", error.message);
-    res.writeHead(404).end();
+    if ("statusCode" in error && "body" in error) {
+      // Known error.
+      const { statusCode, body } = error;
+      log("Error", statusCode, body);
+      res.writeHead(+statusCode);
+      res.write(body);
+      res.end();
+    } else {
+      // Unknown error.
+      log("Error", error.message);
+      res.writeHead(404).end();
+    }
   }
   return undefined;
 }

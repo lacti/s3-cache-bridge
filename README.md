@@ -15,12 +15,13 @@ docker-compose pull &&
 
 ### API
 
-| Method | Description              | Example                            |
-| ------ | ------------------------ | ---------------------------------- |
-| GET    | Get an object            | `curl -XGET localhost:3000/abc`    |
-| PUT    | Put an object            | `curl -T abc localhost:3000/abc`   |
-| DELETE | Delete an object         | `curl -XDELETE localhost:3000/abc` |
-| POST   | Update a state of object | `curl -XPOST localhost:3000/abc`   |
+| Method | Description                                                              | Example                                       |
+| ------ | ------------------------------------------------------------------------ | --------------------------------------------- |
+| GET    | Get an object                                                            | `curl -XGET localhost:3000/abc`               |
+| PUT    | Put an object                                                            | `curl -T abc localhost:3000/abc`              |
+| DELETE | Delete an object                                                         | `curl -XDELETE localhost:3000/abc`            |
+| POST   | Update a state of object                                                 | `curl -XPOST localhost:3000/abc`              |
+| PATCH  | Patch an JSON object using [json-mod](https://github.com/lacti/json-mod) | `curl -XPATCH localhost:3000/abc -d JSON_MOD` |
 
 #### GET Options
 
@@ -50,6 +51,16 @@ docker-compose pull &&
 | `sync`         | Sync with S3 immediately | `curl -XPOST localhost:3000/abc?sync=1`       |
 | `lock=acquire` | Acquire a lock of key    | `curl -XPOST localhost:3000/abc?lock=acquire` |
 | `lock=release` | Release a lock of key    | `curl -XPOST localhost:3000/abc?lock=release` |
+
+#### PATCH Options
+
+Patch an JSON object by [JSON modification protocol](https://github.com/lacti/json-mod).
+
+| Option   | Description                          | Example                                                |
+| -------- | ------------------------------------ | ------------------------------------------------------ |
+| `sync`   | Sync with S3 immediately after patch | `curl -XPATCH localhost:3000/abc?sync=1 -d JSON_MOD`   |
+| `noLock` | Patch an object without the lock     | `curl -XPATCH localhost:3000/abc?noLock=1 -d JSON_MOD` |
+| `fetch`  | Fetch updated object after patch     | `curl -XPATCH localhost:3000/abc?fetch=1 -d JSON_MOD`  |
 
 ### Environment
 
