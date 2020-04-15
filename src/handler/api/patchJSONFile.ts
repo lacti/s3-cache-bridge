@@ -9,13 +9,13 @@ import writeFile from "../support/writeFile";
 export default async function patchJSONFile({
   key,
   req,
-  query
+  query,
 }: IRouteEvent): Promise<void | Readable> {
   const args = {
     key,
     op: JSON.parse(await getStream(req)),
     sync: query.sync === "1",
-    fetch: query.fetch === "1"
+    fetch: query.fetch === "1" ? true : query.fetch === "0" ? false : undefined,
   };
   return query.noLock === "1"
     ? applyPatchToJSON(args)
@@ -26,12 +26,12 @@ async function applyPatchToJSON({
   key,
   op,
   sync,
-  fetch
+  fetch,
 }: {
   key: string;
   op: jsonMod.AnyOperation;
   sync: boolean;
-  fetch: boolean;
+  fetch?: boolean;
 }) {
   const resource = await readFileOrNull(key);
   let newResource = null;
@@ -40,7 +40,7 @@ async function applyPatchToJSON({
   } catch (error) {
     throw {
       statusCode: 200,
-      body: JSON.stringify({ _ok: false, error: error.message })
+      body: JSON.stringify({ _ok: false, error: error.message }),
     };
   }
 
@@ -50,10 +50,12 @@ async function applyPatchToJSON({
       key,
       readable: asStringStream(JSON.stringify(newResource)),
       append: false,
-      sync
+      sync,
     });
   }
-  return !fetch
+
+  // It is a really bad thing because there is a case that requests fetch but no fetch query param.
+  return fetch === false || (fetch === undefined && op.operation !== "fetch")
     ? undefined
     : asStringStream(JSON.stringify({ _ok: true, result: newResource }));
 }
