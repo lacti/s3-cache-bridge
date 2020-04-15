@@ -6,13 +6,6 @@ import IRouteEvent from "../routeEvent";
 import readFile from "../support/readFile";
 import writeFile from "../support/writeFile";
 
-type AnyOperation =
-  | jsonMod.AppendOperation
-  | jsonMod.ModifyOperation
-  | jsonMod.RemoveOperation;
-
-type AnyOperationRequest = Omit<AnyOperation, "resource">;
-
 export default async function patchJSONFile({
   key,
   req,
@@ -36,33 +29,33 @@ async function applyPatchToJSON({
   fetch
 }: {
   key: string;
-  op: AnyOperationRequest;
+  op: jsonMod.AnyOperation;
   sync: boolean;
   fetch: boolean;
 }) {
   const resource = await readFileOrNull(key);
   let newResource = null;
   try {
-    newResource = jsonMod.dispatchOperation({
-      ...op,
-      resource
-    } as AnyOperation);
+    newResource = jsonMod.processOperation(resource, op);
   } catch (error) {
     throw {
       statusCode: 200,
-      body: JSON.stringify({ _updated: false, error: error.message })
+      body: JSON.stringify({ _ok: false, error: error.message })
     };
   }
 
-  await writeFile({
-    key,
-    readable: asStringStream(JSON.stringify(newResource)),
-    append: false,
-    sync
-  });
+  // Fetch is a just fetch. Please do not update a data file.
+  if (op.operation !== "fetch") {
+    await writeFile({
+      key,
+      readable: asStringStream(JSON.stringify(newResource)),
+      append: false,
+      sync
+    });
+  }
   return !fetch
     ? undefined
-    : asStringStream(JSON.stringify({ _updated: true, result: newResource }));
+    : asStringStream(JSON.stringify({ _ok: true, result: newResource }));
 }
 
 function asStringStream(input: string): Readable {

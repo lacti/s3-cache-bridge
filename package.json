@@ -11,7 +11,7 @@
     "aws-sdk": "^2.612.0",
     "filenamify": "^4.1.0",
     "get-stream": "^5.1.0",
-    "json-mod": "^0.0.1",
+    "json-mod": "^0.1.0",
     "jsonwebtoken": "^8.5.1",
     "micro": "^9.3.4",
     "p-limit": "^2.2.2"

@@ -1582,10 +1582,10 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-json-mod@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/json-mod/-/json-mod-0.0.1.tgz#9d603334a010beed1769f7ad9ea5405661bc3d23"
-  integrity sha512-h9iGU3bqFdTcV3O2VVkUycsfOLYaQHKpj3a7Jq+Dm34sDP1r8ADOd6DPjX8qGOKwcep1yajVw7G/ZkZaGGVABg==
+json-mod@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/json-mod/-/json-mod-0.1.0.tgz#77e497bced51f7f94528a39c4e677d84030363c9"
+  integrity sha512-KmGwsz7AGNN1EAy3l0gYn5GkvFOQbSU8mf5RgIyxtGQIN5OFEQ7El0rr5qL1ekiA4R5OEzy3W37yBcGBPTZIpw==
 
 json-parse-better-errors@^1.0.2:
   version "1.0.2"
@@ -1879,11 +1879,6 @@ minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
   integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
-
-minimist@^1.2.3:
-  version "1.2.5"
-  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha512-FM9nNUYrRBAELZQT3xeZQ7fmMOBg6nWNmJKTcgsJeaLstP/UODVpGsr5OhXhhXg6f+qtJ8uiZ+PUxkDWcgIXLw==
 
 mississippi@^3.0.0:
   version "3.0.0"
