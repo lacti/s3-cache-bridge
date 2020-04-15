@@ -33,10 +33,17 @@ async function applyPatchToJSON({
   sync: boolean;
   fetch?: boolean;
 }) {
+  if (!("operation" in op)) {
+    throw new Error("Invalid request");
+  }
+
   const resource = await readFileOrNull(key);
   let newResource = null;
   try {
-    newResource = jsonMod.processOperation(resource, op);
+    newResource = jsonMod.processOperation(resource, {
+      ...op,
+      path: op.path ?? "",
+    });
   } catch (error) {
     throw {
       statusCode: 200,
