@@ -1,10 +1,16 @@
-import { createReadStream, existsSync, lstatSync } from "fs";
-import keyAsLocalFile from "../../local/keyAsLocalFile";
-import s3Download from "../../s3/download";
-import ensureParentDirectory from "../../utils/ensureParentDirectory";
-import log from "../../utils/log";
+import { ReadStream, createReadStream, existsSync, lstatSync } from "fs";
 
-export default async function readFile({ key }: { key: string }) {
+import Response from "../response";
+import ensureParentDirectory from "../../utils/ensureParentDirectory";
+import keyAsLocalFile from "../../local/keyAsLocalFile";
+import log from "../../utils/log";
+import s3Download from "../../s3/download";
+
+export default async function readFile({
+  key,
+}: {
+  key: string;
+}): Promise<Response<ReadStream>> {
   // Download a file from S3 if a local cache doesn't exist.
   const localFile = keyAsLocalFile(key);
   await ensureLocalFile(key, localFile);
@@ -16,7 +22,10 @@ export default async function readFile({ key }: { key: string }) {
   }
 
   log("Get local file", localFile);
-  return createReadStream(localFile);
+  return {
+    length: lstatSync(localFile).size,
+    value: createReadStream(localFile),
+  };
 }
 
 async function ensureLocalFile(key: string, localFile: string) {

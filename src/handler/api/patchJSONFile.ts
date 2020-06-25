@@ -1,8 +1,10 @@
-import getStream from "get-stream";
 import * as jsonMod from "json-mod";
-import { Readable } from "stream";
-import lockGuard from "../../local/lock/lockGuard";
+
 import IRouteEvent from "../routeEvent";
+import { Readable } from "stream";
+import Response from "../response";
+import getStream from "get-stream";
+import lockGuard from "../../local/lock/lockGuard";
 import readFile from "../support/readFile";
 import writeFile from "../support/writeFile";
 
@@ -10,7 +12,7 @@ export default async function patchJSONFile({
   key,
   req,
   query,
-}: IRouteEvent): Promise<void | Readable> {
+}: IRouteEvent): Promise<void | Response<Readable>> {
   const args = {
     key,
     op: JSON.parse(await getStream(req)),
@@ -32,7 +34,7 @@ async function applyPatchToJSON({
   op: jsonMod.AnyOperation;
   sync: boolean;
   fetch?: boolean;
-}) {
+}): Promise<void | Response<Readable>> {
   if (!("operation" in op)) {
     throw new Error("Invalid request");
   }
@@ -62,9 +64,14 @@ async function applyPatchToJSON({
   }
 
   // It is a really bad thing because there is a case that requests fetch but no fetch query param.
-  return fetch === false || (fetch === undefined && op.operation !== "fetch")
-    ? undefined
-    : asStringStream(JSON.stringify({ _ok: true, result: newResource }));
+  if (fetch === false || (fetch === undefined && op.operation !== "fetch")) {
+    return;
+  }
+  const retrivalValue = JSON.stringify({ _ok: true, result: newResource });
+  return {
+    length: retrivalValue.length,
+    value: asStringStream(retrivalValue),
+  };
 }
 
 function asStringStream(input: string): Readable {
@@ -78,7 +85,7 @@ async function readFileOrNull(
   key: string
 ): Promise<jsonMod.ResourceValue | null> {
   try {
-    const stream = await readFile({ key });
+    const { value: stream } = await readFile({ key });
     const content = await getStream(stream);
     if (content.length > 0) {
       return JSON.parse(content);

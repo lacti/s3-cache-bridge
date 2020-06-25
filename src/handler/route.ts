@@ -1,7 +1,8 @@
 import { IncomingMessage, ServerResponse } from "http";
+
+import authenticate from "./authenticate";
 import log from "../utils/log";
 import parseKeyAndQuery from "../utils/parseKeyAndQuery";
-import authenticate from "./authenticate";
 import routes from "./routes";
 
 export default async function route(req: IncomingMessage, res: ServerResponse) {
@@ -15,10 +16,11 @@ export default async function route(req: IncomingMessage, res: ServerResponse) {
     const result = await (routes[req.method ?? ""] ?? noRoute)({
       req,
       key,
-      query
+      query,
     });
     if (result !== undefined) {
-      return result;
+      res.setHeader("Content-Length", result.length.toString());
+      return result.value;
     }
     res.writeHead(200).end();
   } catch (error) {
