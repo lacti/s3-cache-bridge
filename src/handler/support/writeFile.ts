@@ -1,16 +1,16 @@
-import { createWriteStream } from "fs";
 import { Readable } from "stream";
+import { createWriteStream } from "fs";
 import dirty from "../../local/dirty";
-import keyAsLocalFile from "../../local/keyAsLocalFile";
-import syncOneWithS3 from "../../local/syncOneWithS3";
 import ensureParentDirectory from "../../utils/ensureParentDirectory";
+import keyAsLocalFile from "../../local/keyAsLocalFile";
 import log from "../../utils/log";
+import syncOneWithS3 from "../../local/syncOneWithS3";
 
 export default async function writeFile({
   key,
   readable,
   append,
-  sync
+  sync,
 }: {
   key: string;
   readable: Readable;
@@ -40,7 +40,7 @@ function writeToLocalFile(
       .on("error", reject)
       .pipe(
         createWriteStream(localFile, {
-          flags: append ? "a" : "w"
+          flags: append ? "a" : "w",
         })
       )
       .on("error", reject)

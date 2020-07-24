@@ -69,7 +69,7 @@ async function applyPatchToJSON({
   }
   const retrivalValue = JSON.stringify({ _ok: true, result: newResource });
   return {
-    length: retrivalValue.length,
+    length: Buffer.from(retrivalValue, "utf8").length,
     value: asStringStream(retrivalValue),
   };
 }
