@@ -1,4 +1,4 @@
-import IRouteEvent from "../routeEvent";
+import RouteEvent from "../routeEvent";
 import lockGuard from "../../local/lock/lockGuard";
 import writeFile from "../support/writeFile";
 
@@ -6,7 +6,7 @@ export default async function putFile({
   key,
   req: readable,
   query,
-}: IRouteEvent): Promise<void> {
+}: RouteEvent): Promise<void> {
   const args = {
     key,
     readable,

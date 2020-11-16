@@ -1,8 +1,8 @@
 import * as jsonMod from "json-mod";
 
-import IRouteEvent from "../routeEvent";
 import { Readable } from "stream";
 import Response from "../response";
+import RouteEvent from "../routeEvent";
 import getStream from "get-stream";
 import lockGuard from "../../local/lock/lockGuard";
 import readFile from "../support/readFile";
@@ -12,7 +12,7 @@ export default async function patchJSONFile({
   key,
   req,
   query,
-}: IRouteEvent): Promise<void | Response<Readable>> {
+}: RouteEvent): Promise<void | Response<Readable>> {
   const args = {
     key,
     op: JSON.parse(await getStream(req)),

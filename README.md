@@ -21,6 +21,7 @@ docker-compose pull &&
 | PUT    | Put an object                                                            | `curl -T abc localhost:3000/abc`              |
 | DELETE | Delete an object                                                         | `curl -XDELETE localhost:3000/abc`            |
 | POST   | Update a state of object                                                 | `curl -XPOST localhost:3000/abc`              |
+| HEAD   | Check if an object exists                                                | `curl -XHEAD localhost:3000/abc`              |
 | PATCH  | Patch an JSON object using [json-mod](https://github.com/lacti/json-mod) | `curl -XPATCH localhost:3000/abc -d JSON_MOD` |
 
 #### GET Options
@@ -51,6 +52,12 @@ docker-compose pull &&
 | `sync`         | Sync with S3 immediately | `curl -XPOST localhost:3000/abc?sync=1`       |
 | `lock=acquire` | Acquire a lock of key    | `curl -XPOST localhost:3000/abc?lock=acquire` |
 | `lock=release` | Release a lock of key    | `curl -XPOST localhost:3000/abc?lock=release` |
+
+#### HEAD Options
+
+| Option   | Description                      | Example                                   |
+| -------- | -------------------------------- | ----------------------------------------- |
+| `noLock` | Check an object without the lock | `curl -XHEAD localhost:3000/abc?noLock=1` |
 
 #### PATCH Options
 

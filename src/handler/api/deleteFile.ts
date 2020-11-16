@@ -1,13 +1,14 @@
 import { existsSync, unlinkSync } from "fs";
+
+import RouteEvent from "../routeEvent";
 import dirty from "../../local/dirty";
 import keyAsLocalFile from "../../local/keyAsLocalFile";
 import lockGuard from "../../local/lock/lockGuard";
-import syncOneWithS3 from "../../local/syncOneWithS3";
-import s3Delete from "../../s3/delete";
 import log from "../../utils/log";
-import IRouteEvent from "../routeEvent";
+import s3Delete from "../../s3/delete";
+import syncOneWithS3 from "../../local/syncOneWithS3";
 
-export default async function deleteFile({ key, query }: IRouteEvent) {
+export default async function deleteFile({ key, query }: RouteEvent) {
   async function deleteWork() {
     // Delete only cache.
     if (query.cache === "1") {
