@@ -1,11 +1,13 @@
-import { existsSync } from "fs";
-import pLimit from "p-limit";
+import * as pLimit from "p-limit";
+
 import { cacheDir, syncMillis } from "../env";
-import log from "../utils/log";
+
 import { RunningHandle } from "../utils/runningHandle";
 import cleanupAllLocalCacheFiles from "./cleanupAllLocalCacheFiles";
 import cleanupLocalCacheFiles from "./cleanupLocalCacheFiles";
 import dirty from "./dirty";
+import { existsSync } from "fs";
+import log from "../utils/log";
 import syncOneWithS3 from "./syncOneWithS3";
 
 const limit = pLimit(8);
