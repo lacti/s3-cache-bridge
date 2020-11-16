@@ -1,5 +1,3 @@
-import * as pLimit from "p-limit";
-
 import { cacheDir, syncMillis } from "../env";
 
 import { RunningHandle } from "../utils/runningHandle";
@@ -8,6 +6,7 @@ import cleanupLocalCacheFiles from "./cleanupLocalCacheFiles";
 import dirty from "./dirty";
 import { existsSync } from "fs";
 import log from "../utils/log";
+import pLimit from "p-limit";
 import syncOneWithS3 from "./syncOneWithS3";
 
 const limit = pLimit(8);

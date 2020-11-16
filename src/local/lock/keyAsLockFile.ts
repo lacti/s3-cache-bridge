@@ -1,4 +1,4 @@
-import * as filenamify from "filenamify";
+import filenamify from "filenamify";
 import { join } from "path";
 import lockDir from "./lockDir";
 

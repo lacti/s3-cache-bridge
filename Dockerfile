@@ -1,4 +1,4 @@
-FROM node:12-alpine AS builder
+FROM node:14-alpine AS builder
 
 # Install dependencies.
 WORKDIR /tmp
@@ -10,7 +10,7 @@ COPY tsconfig.json webpack.config.js /tmp/
 COPY src /tmp/src
 RUN yarn build
 
-FROM node:12-alpine
+FROM node:14-alpine
 
 # Add Tini.
 RUN apk add --no-cache tini

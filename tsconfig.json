@@ -12,7 +12,8 @@
     "strictFunctionTypes": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "exclude": ["node_modules"]
 }
