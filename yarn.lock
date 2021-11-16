@@ -289,10 +289,10 @@ array-back@^4.0.1:
   resolved "https://registry.yarnpkg.com/array-back/-/array-back-4.0.1.tgz#9b80312935a52062e1a233a9c7abeb5481b30e90"
   integrity sha512-Z/JnaVEXv+A9xabHzN43FiiiWEE7gPCRXMrVmRm00tWbjZRul1iHm7ECzlyNq1p4a4ATXz+G9FJ3GqGOkOV3fg==
 
-aws-sdk@^2.793.0:
-  version "2.793.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.793.0.tgz#17f40a630fcbb37c6703701d73f92a2d3213e411"
-  integrity sha512-zBrDkYAUadS59+GVhhVT8f7medKv2FO/3sX3QDfgHt0ySUYi4umBwp3fXjoJU2oRG70IZ74Wclx4T4tynA+Gjg==
+aws-sdk@^2.814.0:
+  version "2.814.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.814.0.tgz#7a1c36006e0b5826f14bd2511b1d229ef6814bb0"
+  integrity sha512-empd1m/J/MAkL6d9OeRpmg9thobULu0wk4v8W3JToaxGi2TD7PIdvE6yliZKyOVAdJINhBWEBhxR4OUIHhcGbQ==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
