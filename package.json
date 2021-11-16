@@ -8,7 +8,7 @@
     "build": "webpack"
   },
   "dependencies": {
-    "aws-sdk": "^2.793.0",
+    "aws-sdk": "^2.814.0",
     "filenamify": "^4.2.0",
     "get-stream": "^6.0.0",
     "json-mod": "^0.1.0",
