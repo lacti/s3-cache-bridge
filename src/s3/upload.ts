@@ -7,7 +7,7 @@ export default async function s3Upload(key: string, localFile: string) {
     try {
       const src = createReadStream(localFile).on("error", reject);
       const put = await s3Put(key, src);
-      log("S3 Put completed", put.Key, put.ETag);
+      log("S3 Put completed", key, put.ETag);
       resolve();
     } catch (error) {
       reject(error);

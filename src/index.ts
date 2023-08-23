@@ -1,13 +1,15 @@
-import micro from "micro";
+import cleanupExpiredLockPeriodically from "./local/lock/cleanupExpiredLockPeriodically";
+import http from "http";
+import log from "./utils/log";
 import { port } from "./env";
 import route from "./handler/route";
-import cleanupExpiredLockPeriodically from "./local/lock/cleanupExpiredLockPeriodically";
-import syncWithS3Periodically from "./local/syncWithS3Periodically";
-import log from "./utils/log";
 import runningHandle from "./utils/runningHandle";
+import { serve } from "micro";
+import syncWithS3Periodically from "./local/syncWithS3Periodically";
 
 // Start web server.
-micro(route).listen(port);
+const server = new http.Server(serve(route));
+server.listen(port);
 log("Server is ready on", port);
 
 // Start S3 synchronization loop.
